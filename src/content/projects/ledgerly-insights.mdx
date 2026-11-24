@@ -1,0 +1,21 @@
+## The brief
+
+Ledgerly's small business customers opened reports to answer one question: am I doing better than last year? With a year of transactions, the reports page took up to nine seconds to load, and many people gave up before it did.
+
+## Finding the slow parts
+
+Profiling showed three problems: the whole dataset was sent to the browser, aggregation ran on the main thread, and every chart redrew on every filter change.
+
+## What changed
+
+- **Aggregate where the data lives.** The server sends pre-bucketed totals, not raw rows. The payload for a typical year went from 4 MB to 60 KB.
+- **Move the heavy math off the main thread.** Custom date ranges are computed in a Web Worker with a small Rust module compiled to WebAssembly.
+- **Draw less, more often.** Charts redraw only the series that changed, with a short transition so the change is easy to follow.
+
+> Fast is a feature, but clear is the point. We cut three charts nobody read and made the remaining ones answer one question each.
+
+## Results
+
+1. A year of data now charts in under 200 milliseconds on a mid-range laptop.
+2. Weekly report views doubled within two months of launch.
+3. Support tickets about slow reports went from dozens a week to almost none.

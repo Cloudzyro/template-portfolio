@@ -1,0 +1,25 @@
+## Why I built it
+
+A friend studies intertidal ecosystems on a stretch of coast with no cell signal. Her team took notes in three different apps, and every evening someone lost a morning's work to a sync conflict. I wanted to see if a notes app could simply never lose anything.
+
+## How it works
+
+Tidepool stores every note locally first and treats the server as a place to share, not the source of truth.
+
+- Notes are saved to IndexedDB on every keystroke.
+- Edits are merged with a CRDT, so two people editing the same note offline both keep their changes.
+- A service worker syncs quietly whenever signal returns, and shows a small indicator rather than a blocking spinner.
+
+```ts
+doc.change((d) => {
+  d.observations.push({ species, count, at: Date.now() });
+});
+```
+
+## Designing for the field
+
+Gloves, glare and cold hands changed every design decision. Touch targets are at least 56 pixels, text has strong contrast in direct sunlight, and the most common entries (species, count, tide height) are one tap away.
+
+## What happened next
+
+Three research groups now use Tidepool each season. The code is open source, and the sync layer has become a small library other people build on.

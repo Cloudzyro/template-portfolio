@@ -1,0 +1,34 @@
+## The problem
+
+Harborline's dispatchers were running 140 trucks across three states from a spreadsheet, two radios and a whiteboard. When a truck ran late, finding a replacement meant calling drivers one by one. The average reassignment took six minutes, and on a bad morning the whole board fell behind.
+
+## What we built
+
+A live dispatch board that shows every truck, load and driver on one screen, updated in real time. The core idea was simple: **put the next decision in front of the dispatcher before they go looking for it.**
+
+- Late trucks rise to the top with the three best replacements already ranked.
+- One keystroke reassigns a load and texts the driver.
+- Every change is undoable for thirty seconds, so nobody hesitates.
+
+> The first week, a dispatcher told us she'd stopped keeping her paper backup. That was the moment we knew it worked.
+
+## Decisions worth sharing
+
+### Keyboard first, mouse welcome
+
+Dispatchers live on this screen for ten hours. We designed every action for the keyboard first, then made sure it still felt natural with a mouse. A command palette covers anything without a shortcut.
+
+### Optimistic updates with honest failure
+
+Changes apply instantly on screen and sync in the background. If the server rejects one, the row turns amber and explains why in plain words, rather than silently snapping back.
+
+```ts
+const result = await reassign(load, truck);
+if (!result.ok) flagRow(load.id, result.reason);
+```
+
+## Results
+
+1. Median reassignment time fell from six minutes to 48 seconds.
+2. On-time delivery rose from 86 to 94 percent over the first quarter.
+3. Two dispatchers now cover a shift that used to need three, with less overtime.

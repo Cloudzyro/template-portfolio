@@ -1,0 +1,23 @@
+## Where things stood
+
+Fernway had four product teams, two brands and five different button components. Each team had copied the last one and changed something small. Accessibility fixes landed in one app and never reached the others.
+
+## The approach
+
+I treated the design system as a product with its own users: the engineers and designers on the other teams. Before writing a component, I spent two weeks pairing with each team to see what slowed them down.
+
+- **Tokens first.** Color, type, spacing and motion became tokens in Figma, exported to CSS custom properties on every merge.
+- **Small, composable parts.** Sixty components, each with clear states, documented in Storybook with real content rather than lorem ipsum.
+- **Accessibility built in.** Focus handling, labels and contrast are part of each component, so teams get them for free.
+
+> A design system succeeds when teams stop asking whether to use it.
+
+## Two brands, one codebase
+
+Fernway's consumer app and its clinician tools look very different. Rather than fork the library, each brand is a theme file of about forty tokens. Switching brands is a single class on the root element.
+
+## Results
+
+1. UI bugs reported by support fell 41 percent within six months.
+2. The patient app reached WCAG 2.2 AA, confirmed by an outside audit.
+3. A new feature screen now takes days to build instead of weeks.
