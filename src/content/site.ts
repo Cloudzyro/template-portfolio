@@ -14,7 +14,7 @@ export const site = {
     "Ines Calder is a product engineer who designs and builds calm, fast interfaces for tools people use all day.",
   availability: "Booking projects for spring 2027",
   email: "hello@inescalder.example",
-  headline: "I build calm, fast software for people who use it all day.",
+  headline: "I build calm, fast software for people who use it all day",
   intro:
     "Product engineer with nine years across design systems, data-heavy dashboards and the small details that make software feel considered. I work best at the seam between design and code.",
   nav: [

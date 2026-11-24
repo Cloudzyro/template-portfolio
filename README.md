@@ -8,7 +8,7 @@ A developer portfolio template with MDX case studies, a resume section, a contac
 
 ## What's included
 
-- Hero with your name, role, location and an availability badge
+- Hero with your name, role, location, availability and a short index of your work
 - Project grid with generated SVG cover art, each linking to a case study page written in MDX
 - About section with quick facts
 - Resume section: experience timeline, grouped skills, education and an optional "Download CV" button

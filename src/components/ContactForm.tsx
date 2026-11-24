@@ -46,13 +46,13 @@ export function ContactForm({ email }: { email: string }) {
       </div>
       <label className="block text-sm font-medium">
         What are you working on?
-        <textarea name="message" required rows={5} className={field} placeholder="A few lines about the project, timeline and team." />
+        <textarea name="message" required rows={5} className={field} placeholder="The project, timeline and team" />
       </label>
       <div className="flex flex-wrap items-center gap-4">
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-lg bg-ink px-5 py-3 text-sm font-medium text-paper transition-[background-color,transform] duration-150 hover:bg-ink/85 active:scale-[0.98] disabled:opacity-60"
         >
           {status === "sending" ? "Sending..." : "Send message"}
         </button>

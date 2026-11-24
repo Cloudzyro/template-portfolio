@@ -2,12 +2,12 @@ import Link from "next/link";
 import { site, projects, about, experience, skills, education } from "@/content/site";
 import { ProjectCover } from "@/components/ProjectCover";
 import { ContactForm } from "@/components/ContactForm";
+import { CropMarks } from "@/components/CropMarks";
 
 function SectionLabel({ index, children }: { index: string; children: React.ReactNode }) {
   return (
-    <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-muted">
+    <p className="flex items-center gap-3 font-mono text-xs text-muted">
       <span className="text-accent">{index}</span>
-      <span className="h-px w-8 bg-line" aria-hidden="true" />
       {children}
     </p>
   );
@@ -17,47 +17,46 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="grain pointer-events-none absolute inset-0 opacity-60 [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden="true" />
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-5 pb-20 pt-16 sm:px-8 sm:pt-24 lg:grid-cols-[1fr_320px] lg:pb-28">
+      <section>
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[1fr_340px] lg:gap-16 lg:py-16">
           <div className="rise">
-            <p className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-3 py-1.5 font-mono text-xs text-muted">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
-                <span className="relative inline-flex size-2 rounded-full bg-accent" />
-              </span>
-              {site.availability}
-            </p>
-            <h1 className="mt-8 font-display text-[clamp(2.75rem,8vw,6.25rem)] leading-[0.95] tracking-[-0.03em] [font-variation-settings:'SOFT'_50,'opsz'_144]">
+            <h1 className="font-display text-[clamp(2.75rem,8vw,6.25rem)] leading-[0.95] tracking-[-0.03em] [font-variation-settings:'SOFT'_50,'opsz'_144]">
               {site.name}
-              <span className="mt-3 block text-[0.42em] italic leading-tight tracking-[-0.01em] text-muted">
-                {site.role}, {site.location}
-              </span>
             </h1>
-            <p className="mt-8 max-w-2xl font-display text-2xl leading-snug sm:text-3xl">{site.headline}</p>
+            <p className="mt-4 text-lg text-muted sm:text-xl">
+              {site.role}, {site.location}
+            </p>
+            <p className="mt-10 max-w-2xl font-display text-2xl leading-snug sm:text-3xl">{site.headline}</p>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">{site.intro}</p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Link href="/#work" className="rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5">
+              <Link href="/#work" className="rounded-lg bg-ink px-5 py-3 text-sm font-medium text-paper transition-[background-color,transform] duration-150 hover:bg-ink/85 active:scale-[0.98]">
                 See selected work
               </Link>
-              <Link href="/#contact" className="rounded-full border border-ink/80 px-6 py-3 text-sm font-medium transition-colors hover:bg-ink hover:text-paper">
+              <Link href="/#contact" className="rounded-lg border border-ink/30 px-5 py-3 text-sm font-medium transition-[border-color,transform] duration-150 hover:border-ink active:scale-[0.98]">
                 Start a conversation
               </Link>
             </div>
           </div>
-          <div className="rise hidden lg:block" style={{ animationDelay: "120ms" }} aria-hidden="true">
-            <svg viewBox="0 0 320 420" className="h-full w-full">
-              <g fill="none" className="stroke-ink" strokeWidth="1">
-                {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-                  <path key={i} d={`M ${20 + i * 14} 400 A ${140 - i * 14} ${140 - i * 14} 0 0 1 ${300 - i * 14} 400`} opacity={1 - i * 0.12} />
+          <aside className="rise" style={{ animationDelay: "60ms" }} aria-label="Availability and selected work">
+            <div className="relative border border-line bg-paper p-6">
+              <CropMarks />
+              <p className="font-mono text-xs text-muted">Availability</p>
+              <p className="mt-1">{site.availability}</p>
+              <p className="mt-6 border-t border-line pt-5 font-mono text-xs text-muted">Selected work</p>
+              <ol className="mt-2">
+                {projects.map((p, i) => (
+                  <li key={p.slug}>
+                    <Link href={`/work/${p.slug}/`} className="group grid grid-cols-[20px_12px_1fr_auto] items-center gap-3 py-2">
+                      <span className="font-mono text-xs text-muted tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="size-3 ring-1 ring-ink/10 ring-inset" style={{ background: p.cover.from }} aria-hidden="true" />
+                      <span className="link-underline justify-self-start">{p.title}</span>
+                      <span className="font-mono text-xs text-muted tabular-nums">{p.year}</span>
+                    </Link>
+                  </li>
                 ))}
-              </g>
-              <circle cx="160" cy="150" r="58" className="fill-accent" />
-              <circle cx="160" cy="150" r="58" fill="none" className="stroke-ink" strokeDasharray="3 6" transform="translate(16 16)" />
-              <text x="20" y="40" className="fill-muted font-mono text-[11px]">EST. 2017</text>
-              <text x="300" y="40" textAnchor="end" className="fill-muted font-mono text-[11px]">45.52 N</text>
-            </svg>
-          </div>
+              </ol>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -75,8 +74,9 @@ export default function Home() {
             {projects.map((p, i) => (
               <li key={p.slug} className={i % 2 === 1 ? "md:mt-16" : ""}>
                 <Link href={`/work/${p.slug}/`} className="group block">
-                  <div className="overflow-hidden rounded-2xl border border-line">
-                    <ProjectCover project={p} className="aspect-[10/7] w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                  <div className="relative">
+                    <CropMarks />
+                    <ProjectCover project={p} className="block aspect-[10/7] w-full rounded-[4px]" />
                   </div>
                   <div className="mt-5 flex items-baseline justify-between gap-4">
                     <h3 className="font-display text-2xl tracking-tight">
@@ -85,8 +85,8 @@ export default function Home() {
                     <span className="font-mono text-xs text-muted">{p.year}</span>
                   </div>
                   <p className="mt-2 text-muted">{p.summary}</p>
-                  <p className="mt-4 font-mono text-xs uppercase tracking-wider text-muted">
-                    {p.client} <span aria-hidden="true">/</span> {p.role}
+                  <p className="mt-4 font-mono text-xs text-muted">
+                    {p.client}, {p.role}
                   </p>
                 </Link>
               </li>
@@ -101,7 +101,7 @@ export default function Home() {
           <div>
             <SectionLabel index="02">About</SectionLabel>
             <h2 className="mt-4 font-display text-4xl tracking-tight sm:text-5xl">
-              Design-minded, <em className="text-accent">engineering-led.</em>
+              Design-minded, engineering-led
             </h2>
           </div>
           <div>
@@ -113,7 +113,7 @@ export default function Home() {
             <dl className="mt-10 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2">
               {about.facts.map((f) => (
                 <div key={f.label} className="bg-paper-2 p-5">
-                  <dt className="font-mono text-xs uppercase tracking-wider text-muted">{f.label}</dt>
+                  <dt className="font-mono text-xs text-muted">{f.label}</dt>
                   <dd className="mt-1.5">{f.value}</dd>
                 </div>
               ))}
@@ -131,7 +131,7 @@ export default function Home() {
               <h2 className="mt-4 font-display text-4xl tracking-tight sm:text-5xl">Experience and skills</h2>
             </div>
             {site.cvFile && (
-              <a href={site.cvFile} className="rounded-full border border-ink/80 px-5 py-2.5 text-sm font-medium transition-colors hover:bg-ink hover:text-paper" download>
+              <a href={site.cvFile} className="rounded-lg border border-ink/30 px-5 py-2.5 text-sm font-medium transition-colors duration-150 hover:border-ink" download>
                 Download CV (PDF)
               </a>
             )}
@@ -141,8 +141,8 @@ export default function Home() {
               {experience.map((job) => (
                 <li key={job.company + job.period} className="relative pb-12 pl-8 last:pb-0">
                   <span className="absolute -left-[5px] top-2 size-[9px] rounded-full border-2 border-paper bg-accent ring-1 ring-accent" aria-hidden="true" />
-                  <p className="font-mono text-xs uppercase tracking-wider text-muted">{job.period}</p>
-                  <h3 className="mt-2 text-xl font-semibold">
+                  <p className="font-mono text-xs text-muted">{job.period}</p>
+                  <h3 className="mt-2 text-xl font-medium">
                     {job.role} <span className="font-normal text-muted">at {job.company}</span>
                   </h3>
                   <p className="mt-2 leading-relaxed text-muted">{job.detail}</p>
@@ -152,10 +152,10 @@ export default function Home() {
             <div className="space-y-10">
               {skills.map((s) => (
                 <div key={s.group}>
-                  <h3 className="font-mono text-xs uppercase tracking-wider text-muted">{s.group}</h3>
-                  <ul className="mt-3 flex flex-wrap gap-2">
+                  <h3 className="font-mono text-xs text-muted">{s.group}</h3>
+                  <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                     {s.items.map((item) => (
-                      <li key={item} className="rounded-full border border-line px-3 py-1 text-sm">
+                      <li key={item}>
                         {item}
                       </li>
                     ))}
@@ -163,7 +163,7 @@ export default function Home() {
                 </div>
               ))}
               <div>
-                <h3 className="font-mono text-xs uppercase tracking-wider text-muted">Education</h3>
+                <h3 className="font-mono text-xs text-muted">Education</h3>
                 {education.map((e) => (
                   <p key={e.title} className="mt-3">
                     {e.title}
@@ -182,13 +182,12 @@ export default function Home() {
       <section id="contact" className="border-t border-line bg-ink text-paper">
         <div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1fr_1.3fr]">
           <div>
-            <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em] text-paper/60">
+            <p className="flex items-center gap-3 font-mono text-xs text-paper/60">
               <span className="text-accent">04</span>
-              <span className="h-px w-8 bg-paper/30" aria-hidden="true" />
               Contact
             </p>
             <h2 className="mt-4 font-display text-4xl tracking-tight sm:text-5xl">
-              Have something worth <em className="text-accent">building?</em>
+              Have something worth building?
             </h2>
             <p className="mt-6 max-w-md text-lg text-paper/70">
               Tell me about the problem, the people who have it, and when you&apos;d like to start. I reply to every message.
@@ -197,7 +196,7 @@ export default function Home() {
               {site.email}
             </a>
           </div>
-          <div className="rounded-2xl bg-paper p-6 text-ink sm:p-8">
+          <div className="rounded-xl bg-paper p-6 text-ink sm:p-8">
             <ContactForm email={site.email} />
           </div>
         </div>

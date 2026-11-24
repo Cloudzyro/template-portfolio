@@ -10,7 +10,7 @@ export function Header() {
       </a>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label={`${site.name}, home`}>
-          <span className="grid size-9 place-items-center rounded-full bg-ink font-display text-sm font-semibold text-paper">
+          <span className="grid size-9 place-items-center rounded-full bg-ink font-display text-sm font-medium text-paper">
             {site.initials}
           </span>
           <span className="hidden font-display text-lg sm:inline">{site.name}</span>
@@ -20,14 +20,14 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="hidden rounded-full px-3 py-2 text-sm text-muted transition-colors hover:text-ink md:inline-block"
+              className="hidden rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink md:inline-block"
             >
               {item.label}
             </Link>
           ))}
           <Link
             href="/#contact"
-            className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-ink transition-transform hover:-translate-y-0.5 md:hidden"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-ink transition-transform duration-150 active:scale-[0.98] md:hidden"
           >
             Contact
           </Link>
